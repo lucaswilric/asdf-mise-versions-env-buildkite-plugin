@@ -3,9 +3,11 @@ set -euo pipefail
 
 source="${BUILDKITE_PLUGIN_ASDF_MISE_VERSIONS_SOURCE:-asdf}"
 
+dir="$(dirname $0)"
+
 echo "--- Setting *_VERSION environment variables"
 if [[ "$source" == "asdf" ]]; then
-    awk -f asdf.awk .tool-versions | buildkite-agent env set --input-format=json --output-format=quiet -
+    awk -f "${dir}/asdf.awk" .tool-versions | buildkite-agent env set --input-format=json --output-format=quiet -
 elif [[ "$source" == "mise" ]]; then
-    awk -f mise.awk .mise.toml |  buildkite-agent env set --input-format=json --output-format=quiet -
+    awk -f "${dir}/mise.awk" .mise.toml |  buildkite-agent env set --input-format=json --output-format=quiet -
 fi
