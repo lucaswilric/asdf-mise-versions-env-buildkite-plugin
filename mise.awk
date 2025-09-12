@@ -14,7 +14,7 @@ BEGIN {
         if ($0!~/^\s*$/) {
             if (num_tools > 0) printf ","
             gsub(/-/, "_", $1)
-            printf "\"MISE_" toupper($1) "_VERSION\":" $3
+            printf "\"" toupper($1) "_VERSION\":" $3
             num_tools++
         }
     }
