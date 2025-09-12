@@ -1,0 +1,13 @@
+#!/bin/bash
+set -euo pipefail
+
+# ASDF_CONFIGS="$BUILDKITE_PLUGIN_ASDF_MISE_VERSIONS_ASDF_CONFIGS"
+# MISE_CONFIGS="$BUILDKITE_PLUGIN_ASDF_MISE_VERSIONS_MISE_CONFIGS"
+
+echo "--- Setting ASDF_*_VERSION environment variables"
+
+awk -f asdf.awk .tool-versions | buildkite-agent env set --input-format=json --output-format=quiet -
+
+echo "--- Setting MISE_*_VERSION environment variables"
+
+awk -f mise.awk .mise.toml |  buildkite-agent env set --input-format=json --output-format=quiet -

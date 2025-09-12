@@ -1,0 +1,16 @@
+name: "asdf/mise info"
+description: Sets environment variables with versions from asdf & mise configuration
+author: https://github.com/buildkite/
+requirements: ["buildkite-agent", "awk"]
+# configuration:
+#   properties:
+#     asdf_configs:
+#       type: array
+#       items:
+#         type: "string"
+#     mise_configs:
+#       type: array
+#       items:
+#         type: "string"
+#   required: []
+#   additionalProperties: false
