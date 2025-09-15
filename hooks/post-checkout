@@ -1,9 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
-source="${BUILDKITE_PLUGIN_ASDF_MISE_VERSIONS_SOURCE:-asdf}"
+source="${BUILDKITE_PLUGIN_TOOL_VERSIONS_ENV_SOURCE:-asdf}"
 
-dir="$(dirname $0)"
+dir="$(dirname "${0}")"
 
 echo "--- Setting *_VERSION environment variables"
 if [[ "$source" == "asdf" ]]; then

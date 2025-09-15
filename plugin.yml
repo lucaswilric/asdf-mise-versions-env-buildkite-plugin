@@ -1,4 +1,4 @@
-name: "asdf/mise info"
+name: "Tool versions -> env"
 description: Sets environment variables with versions from asdf & mise configuration
 author: https://github.com/buildkite/
 requirements: ["buildkite-agent", "awk"]
