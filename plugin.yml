@@ -1,4 +1,4 @@
-name: "Tool versions -> env"
+name: "tool-versions-env"
 description: Sets environment variables with versions from asdf & mise configuration
 author: https://github.com/buildkite/
 requirements: ["buildkite-agent", "awk"]
@@ -6,4 +6,11 @@ configuration:
   properties:
     source:
       type: string
+      pattern: "^(asdf|mise)$"
+    tools:
+      type: array
+      items:
+        type: string
+        # Regex source: https://github.com/asdf-vm/asdf/pull/1010
+        pattern: "^[a-zA-Z0-9_-]+$"
 #   additionalProperties: false

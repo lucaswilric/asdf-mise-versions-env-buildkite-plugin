@@ -3,11 +3,18 @@ set -euo pipefail
 
 source="${BUILDKITE_PLUGIN_TOOL_VERSIONS_ENV_SOURCE:-asdf}"
 
-dir="$(dirname "${0}")"
+while IFS='=' read -r name _ ; do
+   if [[ $name =~ ^(BUILDKITE_PLUGIN_TOOL_VERSIONS_ENV_TOOLS_[0-9]+) ]]; then
+       case "$source" in
+           asdf)
+               vsn="$(awk "/$name / {print \$2}" .tool-versions)"
+               ;;
+           mise)
+               # We rashly assume it's a tool and not an env!
+               vsn="$(awk "/$name = / {print \$3}" .mise.toml | tr -d '"')"
+       esac
 
-echo "--- Setting *_VERSION environment variables"
-if [[ "$source" == "asdf" ]]; then
-    awk -f "${dir}/asdf.awk" .tool-versions | buildkite-agent env set --input-format=json --output-format=quiet -
-elif [[ "$source" == "mise" ]]; then
-    awk -f "${dir}/mise.awk" .mise.toml |  buildkite-agent env set --input-format=json --output-format=quiet -
-fi
+       #shellcheck disable=SC2046
+       export $(tr '[:lower:]' '[:upper:]' <<< "$name")_VERSION="$vsn"
+   fi
+done < <(env | sort)
