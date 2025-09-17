@@ -3,18 +3,22 @@ set -euo pipefail
 
 source="${BUILDKITE_PLUGIN_TOOL_VERSIONS_ENV_SOURCE:-asdf}"
 
-while IFS='=' read -r name _ ; do
+while IFS='=' read -r name tool ; do
    if [[ $name =~ ^(BUILDKITE_PLUGIN_TOOL_VERSIONS_ENV_TOOLS_[0-9]+) ]]; then
        case "$source" in
            asdf)
-               vsn="$(awk "/$name / {print \$2}" .tool-versions)"
+               vsn="$(awk "/$tool / {print \$2}" .tool-versions)"
                ;;
            mise)
                # We rashly assume it's a tool and not an env!
-               vsn="$(awk "/$name = / {print \$3}" .mise.toml | tr -d '"')"
+               vsn="$(awk "/$tool = / {print \$3}" .mise.toml | tr -d '"')"
        esac
 
+       var="$(tr '[:lower:]' '[:upper:]' <<< "$tool")_VERSION"
+
+       echo "Setting $var to $vsn."
+
        #shellcheck disable=SC2046
-       export $(tr '[:lower:]' '[:upper:]' <<< "$name")_VERSION="$vsn"
+       export $var="$vsn"
    fi
 done < <(env | sort)
