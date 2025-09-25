@@ -10,10 +10,10 @@ Use the plugin in your steps like this:
 steps:
   - command: 'echo $RUBY_VERSION'
     plugins:
-      - lucaswilric/tool-versions-env:
-          source: asdf # or "mise"
+      - lucaswilric/tool-versions-env#main:
+          source: asdf
           tools:
-            - ruby
+            - terraform
 ```
 
 ## Configuration
