@@ -10,7 +10,7 @@ Use the plugin in your steps like this:
 steps:
   - command: 'echo $RUBY_VERSION'
     plugins:
-      - lucaswilric/tool-versions-env#main:
+      - buildkite/tool-versions-env#main:
           source: asdf
           tools:
             - terraform

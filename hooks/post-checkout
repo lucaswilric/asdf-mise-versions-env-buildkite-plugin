@@ -18,7 +18,6 @@ while IFS='=' read -r name tool ; do
 
        echo "Setting $var to $vsn."
 
-       #shellcheck disable=SC2046
-       export $var="$vsn"
+       export "$var"="$vsn"
    fi
 done < <(env | sort)
