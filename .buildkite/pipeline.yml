@@ -8,7 +8,7 @@ steps:
   - label: ":sparkles: Lint"
     plugins:
       - plugin-linter#v3.3.0:
-          id: lucaswilric/tool-versions-env
+          id: buildkite/tool-versions-env
 
   - label: ":shell: Shellcheck"
     plugins:
